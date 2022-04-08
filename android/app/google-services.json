@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "420270107041",
+    "project_id": "smartexpense-5194b",
+    "storage_bucket": "smartexpense-5194b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:420270107041:android:34552f73324d09584403e0",
+        "android_client_info": {
+          "package_name": "com.example.lol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "420270107041-9qu5ih7mj131tkmt0qfakn34erndlffh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lol",
+            "certificate_hash": "36212f9f3a2019aad235f59e6f24de636e24f4ab"
+          }
+        },
+        {
+          "client_id": "420270107041-2pet4lm83inrg5lofp36vl1bs9ji6pqm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_xWE-cVweOHrHoCs6VkrdIp3HytidCyM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "420270107041-2pet4lm83inrg5lofp36vl1bs9ji6pqm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "420270107041-l7mctug71kkf2aauq0kosk6dlogviqgi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Smartexpense.lol"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:420270107041:android:21e775a5292a9e724403e0",
+        "android_client_info": {
+          "package_name": "com.mfa.smartexp.smartexp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "420270107041-t693mup15v7jhe2n8bfuv9lnnnpqgajr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mfa.smartexp.smartexp",
+            "certificate_hash": "36212f9f3a2019aad235f59e6f24de636e24f4ab"
+          }
+        },
+        {
+          "client_id": "420270107041-2pet4lm83inrg5lofp36vl1bs9ji6pqm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_xWE-cVweOHrHoCs6VkrdIp3HytidCyM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "420270107041-2pet4lm83inrg5lofp36vl1bs9ji6pqm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "420270107041-l7mctug71kkf2aauq0kosk6dlogviqgi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Smartexpense.lol"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
