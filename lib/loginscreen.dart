@@ -5,8 +5,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:smartexp/homescreen.dart';
+import 'package:smartexp/logout.dart';
 import 'package:smartexp/sign%20up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'circle.dart';
 
@@ -18,13 +20,15 @@ class loginscreen extends StatefulWidget {
 }
 
 final _auth = FirebaseAuth.instance;
+final GoogleSignIn _googleSignIn = GoogleSignIn();
+final TextEditingController emailController = new TextEditingController();
+final TextEditingController passwordController = new TextEditingController();
 
 class _loginscreenState extends State<loginscreen> {
   @override
   Widget build(BuildContext context) {
-    final TextEditingController emailController = new TextEditingController();
-    final TextEditingController passwordController =
-        new TextEditingController();
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height * 0.4;
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -32,7 +36,7 @@ class _loginscreenState extends State<loginscreen> {
           children: [
             circle(),
             Container(
-                height: 400,
+                height: height,
                 width: 400,
                 margin: EdgeInsets.only(top: 105, left: 20),
                 child: Image.asset(
@@ -63,32 +67,6 @@ class _loginscreenState extends State<loginscreen> {
                 ),
               ),
             ),
-            /* Container(
-              margin: EdgeInsets.only(top: 400, left: 0),
-              child: TextField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  hintText: 'Username, Email',
-                ),
-              ),
-            ),
-            
-            Container(
-              margin: EdgeInsets.only(top: 475, left: 0),
-              child: TextField(
-                controller: passwordController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  hintText: 'Password',
-                ),
-              ),
-            ),
-            */
             Container(
               margin: EdgeInsets.only(top: 550, left: 250),
               child: RichText(
@@ -108,36 +86,12 @@ class _loginscreenState extends State<loginscreen> {
                 ),
               ),
             ),
-            /*InkWell(
-              child: Container(
-                
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    "Sign in",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.outfit(
-                        textStyle: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.normal)),
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: const Color(0xff8234F8),
-                ),
-                height: 50,
-                width: 400,
-              ),
-              onTap: () {
-                signIn(emailController.text, passwordController.text);
-              },
-            ),*/
             Container(
               margin: EdgeInsets.only(
                 top: 600,
               ),
               child: FlatButton(
-                  child: Text("Submit"),
+                  child: Text("Sign in"),
                   textColor: Colors.white,
                   color: const Color(0xff8234F8),
                   height: 50,
@@ -151,11 +105,13 @@ class _loginscreenState extends State<loginscreen> {
               margin: EdgeInsets.only(top: 670, left: 100),
               child: SignInButton(
                 Buttons.Google,
-                onPressed: () {},
+                onPressed: () {
+                  signInWithGoogle();
+                },
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 800, left: 75),
+              margin: EdgeInsets.only(top: 770, left: 75),
               child: RichText(
                 text: TextSpan(
                   text: "Don't have an account ? Register",
@@ -174,27 +130,41 @@ class _loginscreenState extends State<loginscreen> {
                 ),
               ),
             ),
-            /*Container(
-              margin: EdgeInsets.only(top: 759, left: 150),
-              child: Image.asset(
-                "img/google.png",
-                
-                fit: BoxFit.contain,
-              ),
-              
-            ),*/
           ],
         ));
   }
-}
 
-void signIn(String email, String password) async {
-  await _auth
-      .signInWithEmailAndPassword(email: email, password: password)
-      .then((uid) => {
-            Fluttertoast.showToast(msg: "Login Sucessful"),
-          })
-      .catchError((e) {
-    print(e);
-  });
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => logout(),
+        ));
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  void signIn(String email, String password) async {
+    await _auth
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((uid) => {
+              Fluttertoast.showToast(msg: "Login Sucessful"),
+            })
+        .catchError((e) {
+      print(e);
+    });
+  }
 }

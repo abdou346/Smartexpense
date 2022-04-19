@@ -1,18 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:smartexp/circle.dart';
 import 'package:smartexp/loginscreen.dart';
 
 import 'circle.dart';
 
-class homescreen extends StatelessWidget {
+class homescreen extends StatefulWidget {
   const homescreen({Key? key}) : super(key: key);
 
   @override
+  State<homescreen> createState() => _homescreenState();
+}
+
+final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+class _homescreenState extends State<homescreen> {
+  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height * 0.4;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -20,7 +28,7 @@ class homescreen extends StatelessWidget {
         child: Column(children: [
           Stack(children: [
             Container(
-                height: 400,
+                height: height,
                 width: 400,
                 margin: EdgeInsets.only(top: 175, left: 20),
                 child: Image.asset(
@@ -30,7 +38,7 @@ class homescreen extends StatelessWidget {
             circle(),
           ]),
           Container(
-            margin: EdgeInsets.only(top: 20),
+            margin: EdgeInsets.only(top: 50),
             child: Text(
               "Explore the app",
               style: GoogleFonts.outfit(
@@ -41,7 +49,7 @@ class homescreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(30.0),
             child: Container(
-              margin: EdgeInsets.only(top: 20),
+              margin: EdgeInsets.only(top: 0),
               child: Text(
                 "Debutez votre aventure , cette applicaion fera partie de votre quotidien et vous aidera a mieux gerer votre budget.",
                 textAlign: TextAlign.center,
@@ -72,6 +80,7 @@ class homescreen extends StatelessWidget {
                 width: 400,
               ),
               onTap: () {
+                signOutGoogle();
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -83,5 +92,10 @@ class homescreen extends StatelessWidget {
         ]),
       ),
     );
+  }
+
+  void signOutGoogle() async {
+    await _googleSignIn.signOut();
+    print("User Sign Out");
   }
 }
