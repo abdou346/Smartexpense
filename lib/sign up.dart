@@ -149,7 +149,6 @@ class _SignupState extends State<Signup> {
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((uid) => {
               Fluttertoast.showToast(msg: "Registred Sucessfuly"),
-              userSetup(fullNameController.text, numbercontroller.text, email),
               Navigator.push(
                   context,
                   MaterialPageRoute(

@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:smartexp/homescreen.dart';
+import 'package:smartexp/info.dart';
 import 'package:smartexp/logout.dart';
 import 'package:smartexp/sign%20up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,8 +22,11 @@ class loginscreen extends StatefulWidget {
 
 final _auth = FirebaseAuth.instance;
 final GoogleSignIn _googleSignIn = GoogleSignIn();
-final TextEditingController emailController = new TextEditingController();
+final TextEditingController emailcontroller = new TextEditingController();
 final TextEditingController passwordController = new TextEditingController();
+String? email;
+String? name;
+String? uid;
 
 class _loginscreenState extends State<loginscreen> {
   @override
@@ -46,7 +50,7 @@ class _loginscreenState extends State<loginscreen> {
             Container(
               margin: EdgeInsets.only(top: 400, left: 0),
               child: TextFormField(
-                  controller: emailController,
+                  controller: emailcontroller,
                   decoration: InputDecoration(
                     labelText: "Email",
                     border: OutlineInputBorder(
@@ -97,7 +101,7 @@ class _loginscreenState extends State<loginscreen> {
                   height: 50,
                   minWidth: 400,
                   onPressed: () {
-                    signIn(emailController.text, passwordController.text);
+                    signIn(emailcontroller.text, passwordController.text);
                   }),
             ),
             Container(
@@ -147,11 +151,28 @@ class _loginscreenState extends State<loginscreen> {
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => logout(),
-        ));
+
+    ///  Get the email from selected google account
+    var email = googleUser!.email;
+
+    ///  Check the existence
+    var methods = await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+    if (methods.contains('google.com')) {
+      ///  User already signed-up with this google account
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => homescreen(),
+          ));
+    } else {
+      ///  User is trying to sign-up for first time
+      ///
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => info(),
+          ));
+    }
 
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
