@@ -4,14 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:smartexp/addexpense.dart';
 import 'package:smartexp/homescreen.dart';
 import 'package:smartexp/info.dart';
+import 'package:smartexp/lobby.dart';
 import 'package:smartexp/logout.dart';
 import 'package:smartexp/sign%20up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'circle.dart';
+import 'sign up.dart';
+import 'infogoogle.dart';
 
 class loginscreen extends StatefulWidget {
   const loginscreen({Key? key}) : super(key: key);
@@ -41,8 +45,8 @@ class _loginscreenState extends State<loginscreen> {
             circle(),
             Container(
                 height: height,
-                width: 400,
-                margin: EdgeInsets.only(top: 105, left: 20),
+                width: 410,
+                margin: EdgeInsets.only(top: 115, left: 10),
                 child: Image.asset(
                   "img/logo.png",
                   fit: BoxFit.contain,
@@ -115,7 +119,7 @@ class _loginscreenState extends State<loginscreen> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 770, left: 75),
+              margin: EdgeInsets.only(top: 730, left: 75),
               child: RichText(
                 text: TextSpan(
                   text: "Don't have an account ? Register",
@@ -136,6 +140,17 @@ class _loginscreenState extends State<loginscreen> {
             ),
           ],
         ));
+  }
+
+  void signIn(String email, String password) async {
+    await _auth
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((uid) => {
+              Fluttertoast.showToast(msg: "Login Sucessful"),
+            })
+        .catchError((e) {
+      print(e);
+    });
   }
 
   Future<UserCredential> signInWithGoogle() async {
@@ -162,7 +177,7 @@ class _loginscreenState extends State<loginscreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => homescreen(),
+            builder: (context) => lobby(),
           ));
     } else {
       ///  User is trying to sign-up for first time
@@ -170,22 +185,11 @@ class _loginscreenState extends State<loginscreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => info(),
+            builder: (context) => infogoogle(),
           ));
     }
 
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
-  }
-
-  void signIn(String email, String password) async {
-    await _auth
-        .signInWithEmailAndPassword(email: email, password: password)
-        .then((uid) => {
-              Fluttertoast.showToast(msg: "Login Sucessful"),
-            })
-        .catchError((e) {
-      print(e);
-    });
   }
 }

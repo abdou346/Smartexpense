@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:smartexp/homescreen.dart';
 import 'package:smartexp/info.dart';
 import 'package:smartexp/loginscreen.dart';

@@ -9,11 +9,11 @@ import 'loginscreen.dart';
 import 'firebase.dart';
 import 'sign up.dart';
 
-class info extends StatefulWidget {
-  const info({Key? key}) : super(key: key);
+class infogoogle extends StatefulWidget {
+  const infogoogle({Key? key}) : super(key: key);
 
   @override
-  State<info> createState() => _infoState();
+  State<infogoogle> createState() => _infoState();
 }
 
 final Salarycontroller = TextEditingController();
@@ -22,7 +22,7 @@ final soldecontroller = TextEditingController();
 final agecontroller = TextEditingController();
 final datenaissancecontroller = TextEditingController();
 
-class _infoState extends State<info> {
+class _infoState extends State<infogoogle> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,9 +109,8 @@ class _infoState extends State<info> {
               height: 50,
               minWidth: 400,
               onPressed: () {
-                userSetup(
-                    fullNameController.text,
-                    numbercontroller.text,
+                userSetupgoogle(
+                    agecontroller.text,
                     double.parse(Salarycontroller.text),
                     double.parse(expcontroller.text),
                     double.parse(soldecontroller.text),

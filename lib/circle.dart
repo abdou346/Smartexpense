@@ -7,7 +7,7 @@ class circle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 500,
+      width: MediaQuery.of(context).size.width,
       height: 200,
       child: Stack(children: [
         Container(

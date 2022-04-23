@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:smartexp/circle.dart';
+import 'package:smartexp/lobby.dart';
 import 'package:smartexp/loginscreen.dart';
 
 import 'circle.dart';
@@ -19,7 +20,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
 class _homescreenState extends State<homescreen> {
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width * 0.5;
     double height = MediaQuery.of(context).size.height * 0.4;
     return Scaffold(
       resizeToAvoidBottomInset: false,
