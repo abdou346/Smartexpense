@@ -5,13 +5,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:smartexp/addexpense.dart';
-import 'package:smartexp/homescreen.dart';
+import 'package:smartexp/homescren.dart';
 import 'package:smartexp/info.dart';
 import 'package:smartexp/lobby.dart';
 import 'package:smartexp/logout.dart';
 import 'package:smartexp/sign%20up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:smartexp/test.dart';
 
 import 'circle.dart';
 import 'sign up.dart';

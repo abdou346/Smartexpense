@@ -44,6 +44,11 @@ dependencies:
   flutter_awesome_buttons: ^1.1.0
   cloud_firestore: ^3.1.12
   table_calendar: ^3.0.5
+  delayed_display: ^2.0.0
+  rxdart: ^0.27.3
+  flutter_native_timezone: ^2.0.0
+  flutter_local_notifications: ^9.5.1
+  timezone: ^0.8.0
 # To add assets to your application, add an assets section, like this:
 dev_dependencies:
   flutter_test:

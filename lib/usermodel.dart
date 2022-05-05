@@ -6,7 +6,7 @@ class usermodel {
   double? salary;
   double? regularexpenses;
   double? soldeactuel;
-
+  double? expenses;
   String? datenaissance;
   usermodel(
       {this.displayName,
@@ -16,6 +16,7 @@ class usermodel {
       this.salary,
       this.regularexpenses,
       this.soldeactuel,
+      this.expenses,
       this.datenaissance});
   factory usermodel.fromMap(map) {
     return usermodel(
@@ -25,6 +26,7 @@ class usermodel {
       email: map['email'],
       salary: map['salary'],
       regularexpenses: map['regularexpenses'],
+      expenses: map['expenses'],
       soldeactuel: map['soldeactuel'],
       datenaissance: map['datenaissance'],
     );
@@ -38,7 +40,8 @@ class usermodel {
       'salary': salary,
       'regularexpenses': regularexpenses,
       'soldeactuel': soldeactuel,
-      'datenaissance': datenaissance
+      'datenaissance': datenaissance,
+      'expenses': expenses,
     };
   }
 }

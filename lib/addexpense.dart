@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,6 +20,7 @@ class _addexpensesState extends State<addexpenses> {
   final name = TextEditingController();
   final amount = TextEditingController();
   final type = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
   Widget build(BuildContext context) {
     int selectedIndex = 0;
     return Scaffold(
@@ -79,6 +82,12 @@ class _addexpensesState extends State<addexpenses> {
               minWidth: 300,
               onPressed: () {
                 usererexp(name.text, double.parse(amount.text), type.text);
+                rankdokter(double.parse(amount.text));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => lobby(),
+                    ));
               }),
         ),
         Container(
@@ -144,5 +153,16 @@ class _addexpensesState extends State<addexpenses> {
         )
       ],
     ));
+  }
+
+  Future<void> rankdokter(double i) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference datadokter = firestore.collection('Users');
+    await datadokter.doc(auth.currentUser!.uid).update(
+      {
+        'soldeactuel': FieldValue.increment(-i),
+        'expenses': FieldValue.increment(i)
+      },
+    );
   }
 }

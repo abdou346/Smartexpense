@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:delayed_display/delayed_display.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smartexp/addexpense.dart';
 import 'package:smartexp/expensesmodel.dart';
-import 'package:smartexp/homescreen.dart';
+import 'package:smartexp/homescren.dart';
 import 'package:smartexp/usermodel.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -19,9 +20,15 @@ class lobby extends StatefulWidget {
 }
 
 class _lobbyState extends State<lobby> {
-  usermodel? a = usermodel();
-  expensesmodel? b = expensesmodel();
-  expensesmodel? c = expensesmodel();
+  FirebaseAuth auth = FirebaseAuth.instance;
+  var growableList = [];
+  var salam = ['hamza', 'zamel', 'kbir'];
+
+  int i = 0;
+  int j = 0;
+  usermodel? a;
+  expensesmodel? b;
+  expensesmodel? c;
   @override
   Widget build(BuildContext context) {
     int selectedIndex = 0;
@@ -71,7 +78,8 @@ class _lobbyState extends State<lobby> {
               ),
               child: RichText(
                 text: TextSpan(
-                  text: "        Total Balance  \n\n         14000dh",
+                  text:
+                      "        Total Balance  \n\n          ${a?.soldeactuel}",
                   style: GoogleFonts.outfit(
                     textStyle: TextStyle(
                       fontSize: 20,
@@ -92,7 +100,7 @@ class _lobbyState extends State<lobby> {
               ),
               child: RichText(
                 text: TextSpan(
-                  text: "             Expenses \n \n            12000dh",
+                  text: "             Expenses \n \n            ${a?.expenses}",
                   style: GoogleFonts.outfit(
                     textStyle: TextStyle(
                       fontSize: 20,
@@ -171,12 +179,22 @@ class _lobbyState extends State<lobby> {
                 DataColumn(label: Text('Amount')),
               ], rows: [
                 DataRow(cells: [
-                  DataCell(Text("shoes")),
-                  DataCell(Text("1000 dh"))
+                  DataCell(Text(
+                      (growableList.length > 0 ? "${growableList[3]}" : ''))),
+                  DataCell(Text(
+                      (growableList.length > 0 ? "${growableList[1]}dh" : '')))
                 ]),
                 DataRow(cells: [
-                  DataCell(Text("groceries ")),
-                  DataCell(Text("1200 dh"))
+                  DataCell(Text(
+                      (growableList.length > 0 ? "${growableList[7]}" : ''))),
+                  DataCell(Text(
+                      (growableList.length > 0 ? "${growableList[5]}dh" : '')))
+                ]),
+                DataRow(cells: [
+                  DataCell(Text(
+                      (growableList.length > 0 ? "${growableList[11]}" : ''))),
+                  DataCell(Text(
+                      (growableList.length > 0 ? "${growableList[9]}dh" : '')))
                 ]),
               ]),
             ),
@@ -186,25 +204,13 @@ class _lobbyState extends State<lobby> {
 
   void initState() {
     super.initState();
-    FirebaseAuth auth = FirebaseAuth.instance;
+
     FirebaseFirestore.instance
         .collection('Users')
-        .doc('${auth.currentUser!.uid}')
+        .doc('${auth.currentUser?.uid}')
         .get()
         .then((value) {
-      a = usermodel.fromMap(value.data());
-
-      setState(() {});
-    });
-    FirebaseFirestore.instance
-        .collection('Expenses')
-        .doc('${auth.currentUser!.uid}')
-        .collection('expenses')
-        .doc('8aFC1LPLz0xQFMNy9KsJ')
-        .get()
-        .then((value) {
-      b = expensesmodel.fromMap(value.data());
-
+      this.a = usermodel.fromMap(value.data());
       setState(() {});
     });
 
@@ -212,12 +218,22 @@ class _lobbyState extends State<lobby> {
         .collection('Expenses')
         .doc('${auth.currentUser!.uid}')
         .collection('expenses')
-        .doc('SAXx7zN8rKw1MHK1VRiG')
         .get()
-        .then((value) {
-      c = expensesmodel.fromMap(value.data());
-
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        // getdocid(doc.id, doc['Amount'], doc['type'], doc['name']);
+        growableList.add(doc.id);
+        growableList.add(doc['Amount'].toString());
+        growableList.add(doc['type']);
+        growableList.add(doc['name']);
+      });
       setState(() {});
     });
+    print('${growableList.length} hamza zamel');
+    var a = growableList;
   }
+
+  //void getdocid(String id, double a, String b, String c) {
+
+  // }
 }
