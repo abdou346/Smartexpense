@@ -29,6 +29,7 @@ Future<void> userSetupgoogle(String phonenumber, double salary,
   FirebaseAuth auth = FirebaseAuth.instance;
   String uid = auth.currentUser!.uid.toString();
   double a = 0;
+  bool t = false;
   DocumentReference users =
       FirebaseFirestore.instance.collection('Users').doc(uid);
   users.set({
@@ -41,6 +42,7 @@ Future<void> userSetupgoogle(String phonenumber, double salary,
     'soldeactuel': solde,
     'datenaissance': datenaissance,
     'expenses': a,
+    'updated': t,
   });
   return;
 }

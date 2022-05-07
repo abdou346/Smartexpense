@@ -40,107 +40,106 @@ class _loginscreenState extends State<loginscreen> {
     double height = MediaQuery.of(context).size.height * 0.4;
 
     return Scaffold(
-        backgroundColor: Colors.white,
         body: Stack(
-          children: [
-            circle(),
-            Container(
-                height: height,
-                width: 410,
-                margin: EdgeInsets.only(top: 115, left: 10),
-                child: Image.asset(
-                  "img/logo.png",
-                  fit: BoxFit.contain,
-                )),
-            Container(
-              margin: EdgeInsets.only(top: 400, left: 0),
-              child: TextFormField(
-                  controller: emailcontroller,
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                  )),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 475, left: 0),
-              child: TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
+      children: [
+        circle(),
+        Container(
+            height: height,
+            width: 410,
+            margin: EdgeInsets.only(top: 115, left: 10),
+            child: Image.asset(
+              "img/logo.png",
+              fit: BoxFit.contain,
+            )),
+        Container(
+          margin: EdgeInsets.only(top: 400, left: 0),
+          child: TextFormField(
+              controller: emailcontroller,
+              decoration: InputDecoration(
+                labelText: "Email",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.0),
                 ),
+              )),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 475, left: 0),
+          child: TextFormField(
+            controller: passwordController,
+            obscureText: true,
+            decoration: InputDecoration(
+              labelText: "Password",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: 550, left: 250),
-              child: RichText(
-                text: TextSpan(
-                  text: "Forgot your password?",
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      print('The button is clicked!');
-                    },
-                  style: GoogleFonts.outfit(
-                    textStyle: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(
-                top: 600,
-              ),
-              child: FlatButton(
-                  child: Text("Sign in"),
-                  textColor: Colors.white,
-                  color: const Color(0xff8234F8),
-                  height: 50,
-                  minWidth: 400,
-                  onPressed: () {
-                    signIn(emailcontroller.text, passwordController.text);
-                  }),
-            ),
-            Container(
-              height: 40,
-              margin: EdgeInsets.only(top: 670, left: 100),
-              child: SignInButton(
-                Buttons.Google,
-                onPressed: () {
-                  signInWithGoogle();
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 550, left: 250),
+          child: RichText(
+            text: TextSpan(
+              text: "Forgot your password?",
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  print('The button is clicked!');
                 },
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 730, left: 75),
-              child: RichText(
-                text: TextSpan(
-                  text: "Don't have an account ? Register",
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: ((context) => Signup())));
-                    },
-                  style: GoogleFonts.outfit(
-                    textStyle: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.orange,
-                    ),
-                  ),
+              style: GoogleFonts.outfit(
+                textStyle: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.blue,
                 ),
               ),
             ),
-          ],
-        ));
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(
+            top: 600,
+          ),
+          child: FlatButton(
+              child: Text("Sign in"),
+              textColor: Colors.white,
+              color: const Color(0xff8234F8),
+              height: 50,
+              minWidth: 400,
+              onPressed: () {
+                signIn(emailcontroller.text, passwordController.text);
+              }),
+        ),
+        Container(
+          height: 40,
+          margin: EdgeInsets.only(top: 670, left: 100),
+          child: SignInButton(
+            Buttons.Google,
+            onPressed: () {
+              signInWithGoogle();
+            },
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 730, left: 75),
+          child: RichText(
+            text: TextSpan(
+              text: "Don't have an account ? Register",
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => Signup())));
+                },
+              style: GoogleFonts.outfit(
+                textStyle: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.orange,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    ));
   }
 
   void signIn(String email, String password) async {

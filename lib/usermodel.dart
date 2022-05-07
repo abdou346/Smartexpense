@@ -8,6 +8,7 @@ class usermodel {
   double? soldeactuel;
   double? expenses;
   String? datenaissance;
+  bool? updated;
   usermodel(
       {this.displayName,
       this.phonenumber,
@@ -17,19 +18,20 @@ class usermodel {
       this.regularexpenses,
       this.soldeactuel,
       this.expenses,
-      this.datenaissance});
+      this.datenaissance,
+      this.updated});
   factory usermodel.fromMap(map) {
     return usermodel(
-      displayName: map['displayName'],
-      phonenumber: map['phonenumber'],
-      uid: map['uid'],
-      email: map['email'],
-      salary: map['salary'],
-      regularexpenses: map['regularexpenses'],
-      expenses: map['expenses'],
-      soldeactuel: map['soldeactuel'],
-      datenaissance: map['datenaissance'],
-    );
+        displayName: map['displayName'],
+        phonenumber: map['phonenumber'],
+        uid: map['uid'],
+        email: map['email'],
+        salary: map['salary'],
+        regularexpenses: map['regularexpenses'],
+        expenses: map['expenses'],
+        soldeactuel: map['soldeactuel'],
+        datenaissance: map['datenaissance'],
+        updated: map['updated']);
   }
   Map<String, dynamic> toMap() {
     return {
@@ -42,6 +44,7 @@ class usermodel {
       'soldeactuel': soldeactuel,
       'datenaissance': datenaissance,
       'expenses': expenses,
+      'updated': updated,
     };
   }
 }

@@ -24,7 +24,6 @@ class _homescreenState extends State<homescreen> {
     double height = MediaQuery.of(context).size.height * 0.4;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(children: [
           Stack(children: [

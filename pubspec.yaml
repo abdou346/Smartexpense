@@ -49,6 +49,14 @@ dependencies:
   flutter_native_timezone: ^2.0.0
   flutter_local_notifications: ^9.5.1
   timezone: ^0.8.0
+  firebase_messaging: ^11.3.0
+  overlay_support: ^1.2.1
+  get_it: ^7.2.0
+  flutter_settings_screens: ^0.2.2+1
+  settings_ui: ^2.0.2
+  adaptive_theme: ^2.3.1
+  shared_preferences: ^2.0.13
+  provider: ^5.0.0
 # To add assets to your application, add an assets section, like this:
 dev_dependencies:
   flutter_test:

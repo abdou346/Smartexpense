@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smartexp/expfirebase.dart';
 import 'package:smartexp/lobby.dart';
+import 'package:smartexp/settings.dart';
 
 import 'circle.dart';
 
@@ -108,6 +109,13 @@ class _addexpensesState extends State<addexpenses> {
                       ));
                 }
                 ;
+                if (selectedIndex == 4) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      ));
+                }
                 if (selectedIndex == 2) {
                   Navigator.push(
                       context,
