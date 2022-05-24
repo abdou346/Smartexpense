@@ -3,16 +3,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'Component/notif.dart';
+import 'Component/notifmanager.dart';
+import 'Screens/Add.dart';
+import 'package:smartexp/Screens/homescren.dart';
 
-import 'package:smartexp/homescren.dart';
-import 'package:smartexp/lobby.dart';
-import 'package:smartexp/modelprovider.dart';
-import 'package:smartexp/settings.dart';
-import 'package:smartexp/theme.dart';
-import 'package:smartexp/usermodel.dart';
-
-import 'notif.dart';
-import 'notifmanager.dart';
+import 'Screens/homescren.dart';
+import 'Screens/info.dart';
+import 'Screens/lobby.dart';
+import 'Screens/loginscreen.dart';
+import 'package:smartexp/Component/modelprovider.dart';
+import 'Screens/objectives.dart';
+import 'Screens/settings.dart';
+import 'package:smartexp/Component/theme.dart';
+import 'package:smartexp/Models/usermodel.dart';
 
 DarkThemeProvider themeChangeProvider = new DarkThemeProvider();
 

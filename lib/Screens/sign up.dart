@@ -8,12 +8,11 @@ import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:smartexp/homescren.dart';
-import 'package:smartexp/info.dart';
-import 'package:smartexp/loginscreen.dart';
-import 'circle.dart';
+import '../Component/circle.dart';
+import 'homescren.dart';
+import 'info.dart';
+import 'loginscreen.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
-import 'firebase.dart';
 
 final _auth = FirebaseAuth.instance;
 

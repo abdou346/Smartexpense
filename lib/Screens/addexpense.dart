@@ -3,11 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smartexp/expfirebase.dart';
-import 'package:smartexp/lobby.dart';
-import 'package:smartexp/settings.dart';
+import 'package:smartexp/Screens/lobby.dart';
+import 'package:smartexp/Screens/settings.dart';
 
-import 'circle.dart';
+import 'package:smartexp/Firebase/expfirebase.dart';
+
+import '../Component/circle.dart';
+import 'detailschoice.dart';
 
 class addexpenses extends StatefulWidget {
   const addexpenses({Key? key}) : super(key: key);
@@ -121,6 +123,13 @@ class _addexpensesState extends State<addexpenses> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => addexpenses(),
+                      ));
+                }
+                if (selectedIndex == 1) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => detailschoice(),
                       ));
                 }
               },

@@ -4,15 +4,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smartexp/addexpense.dart';
-import 'package:smartexp/details.dart';
-import 'package:smartexp/expensesmodel.dart';
-import 'package:smartexp/homescren.dart';
-import 'package:smartexp/settings.dart';
-import 'package:smartexp/usermodel.dart';
+import '../Component/circle.dart';
+import 'Add.dart';
+import 'addexpense.dart';
+import 'details.dart';
+import 'detailschoice.dart';
+import 'package:smartexp/Models/expensesmodel.dart';
+import 'homescren.dart';
+import 'objectives.dart';
+import 'settings.dart';
+import 'package:smartexp/Models/usermodel.dart';
 import 'package:table_calendar/table_calendar.dart';
-
-import 'circle.dart';
 
 class lobby extends StatefulWidget {
   const lobby({Key? key}) : super(key: key);
@@ -80,7 +82,8 @@ class _lobbyState extends State<lobby> {
           ),
           child: RichText(
             text: TextSpan(
-              text: "        Total Balance  \n\n        ${a?.soldeactuel} ",
+              text:
+                  "        Total Balance  \n\n        ${a?.soldeactuel} ${a?.Devise}",
               style: GoogleFonts.outfit(
                 textStyle: TextStyle(
                   fontSize: 20,
@@ -101,7 +104,8 @@ class _lobbyState extends State<lobby> {
           ),
           child: RichText(
             text: TextSpan(
-              text: "             Expenses \n \n           ${a?.expenses}",
+              text:
+                  "             Expenses \n \n           ${a?.expenses} ${a?.Devise}",
               style: GoogleFonts.outfit(
                 textStyle: TextStyle(
                   fontSize: 20,
@@ -113,7 +117,7 @@ class _lobbyState extends State<lobby> {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 727),
+          margin: EdgeInsets.only(top: 730),
           child: BottomNavigationBar(
               currentIndex: selectedIndex,
               onTap: (int index) {
@@ -124,7 +128,7 @@ class _lobbyState extends State<lobby> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => details(),
+                        builder: (context) => detailschoice(),
                       ));
                 }
                 ;
@@ -132,7 +136,7 @@ class _lobbyState extends State<lobby> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => addexpenses(),
+                        builder: (context) => add(),
                       ));
                 }
                 ;
@@ -141,6 +145,13 @@ class _lobbyState extends State<lobby> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => HomeScreen(),
+                      ));
+                }
+                if (selectedIndex == 3) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => objectives(),
                       ));
                 }
               },
@@ -166,7 +177,7 @@ class _lobbyState extends State<lobby> {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.pie_chart,
+                    Icons.list,
                     color: Colors.grey,
                   ),
                   label: 'pie chart',
@@ -189,34 +200,25 @@ class _lobbyState extends State<lobby> {
             DataRow(cells: [
               DataCell(
                   Text((growableList.length > 0 ? "${growableList[3]}" : ''))),
-              DataCell(
-                  Text((growableList.length > 0 ? "${growableList[1]}dh" : '')))
+              DataCell(Text((growableList.length > 0
+                  ? "${growableList[1]} ${a?.Devise}"
+                  : '')))
             ]),
             DataRow(cells: [
               DataCell(
                   Text((growableList.length > 0 ? "${growableList[7]}" : ''))),
-              DataCell(
-                  Text((growableList.length > 0 ? "${growableList[5]}dh" : '')))
+              DataCell(Text((growableList.length > 0
+                  ? "${growableList[5]} ${a?.Devise}"
+                  : '')))
             ]),
             DataRow(cells: [
               DataCell(
                   Text((growableList.length > 0 ? "${growableList[11]}" : ''))),
-              DataCell(
-                  Text((growableList.length > 0 ? "${growableList[9]}dh" : '')))
+              DataCell(Text((growableList.length > 0
+                  ? "${growableList[9]} ${a?.Devise}"
+                  : '')))
             ]),
           ]),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 600, left: 30),
-          child: FlatButton(
-              child: Text("ADD"),
-              textColor: Colors.white,
-              color: const Color(0xff8234F8),
-              height: 50,
-              minWidth: 300,
-              onPressed: () {
-                updateNotifications(true);
-              }),
         ),
       ]),
     ));
@@ -231,12 +233,13 @@ class _lobbyState extends State<lobby> {
         .get()
         .then((value) {
       this.a = usermodel.fromMap(value.data());
-      if (now.day != 7) {
+      if (now.day != 1) {
         updateNotifications(true);
       }
 
-      if (now.day == 7 && a?.updated == true) {
+      if (now.day == 1 && a?.updated == true) {
         rankdokter(a?.salary, a?.regularexpenses);
+        rankdokterr(a?.regularexpenses);
         updateNotifications(false);
       }
       setState(() {});
@@ -274,8 +277,17 @@ class _lobbyState extends State<lobby> {
     await datadokter.doc(auth.currentUser!.uid).update(
       {
         'soldeactuel': FieldValue.increment(i!),
-        'soldeactuel': FieldValue.increment(-j!),
         'expenses': FieldValue.increment(j!)
+      },
+    );
+  }
+
+  Future<void> rankdokterr(double? j) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference datadokter = firestore.collection('Users');
+    await datadokter.doc(auth.currentUser!.uid).update(
+      {
+        'soldeactuel': FieldValue.increment(-j!),
       },
     );
   }

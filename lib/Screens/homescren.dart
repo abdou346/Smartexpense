@@ -2,11 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:smartexp/circle.dart';
-import 'package:smartexp/lobby.dart';
-import 'package:smartexp/loginscreen.dart';
-
-import 'circle.dart';
+import 'package:smartexp/Component/circle.dart';
+import 'lobby.dart';
+import 'loginscreen.dart';
 
 class homescreen extends StatefulWidget {
   const homescreen({Key? key}) : super(key: key);

@@ -57,6 +57,16 @@ dependencies:
   adaptive_theme: ^2.3.1
   shared_preferences: ^2.0.13
   provider: ^5.0.0
+  flutter_profile_picture: ^2.0.0
+  firebase_storage: ^10.2.15
+  file_picker: ^4.5.1
+  image_picker: ^0.8.5+1
+  geocoding: ^2.0.4
+  geolocator: ^8.2.1
+  geocoder: ^0.2.1
+  syncfusion_flutter_pdfviewer: ^20.1.56-beta
+  flutter_full_pdf_viewer: ^1.0.6
+  path_provider: ^2.0.10
 # To add assets to your application, add an assets section, like this:
 dev_dependencies:
   flutter_test:

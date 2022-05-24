@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:smartexp/shared_prefences.dart';
+import 'package:smartexp/Component/shared_prefences.dart';
 
 class DarkThemeProvider with ChangeNotifier {
   DarkThemePreference darkThemePreference = DarkThemePreference();

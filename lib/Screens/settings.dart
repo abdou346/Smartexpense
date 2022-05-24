@@ -4,11 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
-import 'package:smartexp/lobby.dart';
-import 'package:smartexp/theme.dart';
+import 'package:smartexp/Component/circle.dart';
+import 'Add.dart';
+import 'details.dart';
+import 'detailschoice.dart';
+import 'lobby.dart';
+import 'package:smartexp/Component/theme.dart';
 
 import 'addexpense.dart';
-import 'circle.dart';
+
 import 'homescren.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -58,6 +62,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   SettingsTile(
                     leading: Icon(Icons.admin_panel_settings),
                     title: Text('Terms of Service'),
+                    onPressed: (context) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => homescreen(),
+                      ));
+                    },
                   ),
                 ],
               ),
@@ -107,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 727),
+            margin: EdgeInsets.only(top: 730),
             child: BottomNavigationBar(
                 currentIndex: selectedIndex,
                 onTap: (int index) {
@@ -125,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => addexpenses(),
+                          builder: (context) => detailschoice(),
                         ));
                   }
                   ;
@@ -133,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => addexpenses(),
+                          builder: (context) => add(),
                         ));
                   }
                   ;

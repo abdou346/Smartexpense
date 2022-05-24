@@ -1,10 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:smartexp/loginscreen.dart';
-import 'package:smartexp/sign%20up.dart';
 
-Future<void> userSetup(String name, String phonenumber, double salary,
-    double regularexpenses, double solde, String datenaissance) async {
+Future<void> userSetup(
+    String name,
+    String phonenumber,
+    double salary,
+    double regularexpenses,
+    double solde,
+    String datenaissance,
+    String? Devise) async {
   FirebaseAuth auth = FirebaseAuth.instance;
   double a = 0;
   String uid = auth.currentUser!.uid.toString();
@@ -20,12 +24,20 @@ Future<void> userSetup(String name, String phonenumber, double salary,
     'soldeactuel': solde,
     'datenaissance': datenaissance,
     'expenses': a,
+    'Devise': Devise,
+    'Savings': a,
+    'monthlyexpense': a,
   });
   return;
 }
 
-Future<void> userSetupgoogle(String phonenumber, double salary,
-    double regularexpenses, double solde, String datenaissance) async {
+Future<void> userSetupgoogle(
+    String phonenumber,
+    double salary,
+    double regularexpenses,
+    double solde,
+    String datenaissance,
+    String? Devise) async {
   FirebaseAuth auth = FirebaseAuth.instance;
   String uid = auth.currentUser!.uid.toString();
   double a = 0;
@@ -43,6 +55,9 @@ Future<void> userSetupgoogle(String phonenumber, double salary,
     'datenaissance': datenaissance,
     'expenses': a,
     'updated': t,
+    'Devise': Devise,
+    'Savings': a,
+    'monthlyexpense': a,
   });
   return;
 }

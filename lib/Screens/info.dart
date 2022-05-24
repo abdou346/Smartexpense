@@ -1,13 +1,31 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoder/model.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smartexp/logout.dart';
+import 'package:smartexp/Component/circle.dart';
+import 'package:smartexp/Firebase/firebase.dart';
+import 'lobby.dart';
+import '../Component/logout.dart';
+import 'package:smartexp/Models/usermodel.dart';
 
-import 'circle.dart';
 import 'loginscreen.dart';
-import 'firebase.dart';
+
 import 'sign up.dart';
+
+int _email = 0;
+Position? position;
+double? longitude;
+double? latitude;
+String? Devise;
+final geolocator =
+    Geolocator.getCurrentPosition(forceAndroidLocationManager: true);
+final coordinates = new Coordinates(position!.latitude, position!.longitude);
+FirebaseAuth auth = FirebaseAuth.instance;
 
 class info extends StatefulWidget {
   const info({Key? key}) : super(key: key);
@@ -24,6 +42,18 @@ final datenaissancecontroller = TextEditingController();
 
 class _infoState extends State<info> {
   @override
+  String? Address;
+  usermodel? a;
+  void initState() {
+    super.initState();
+
+    permission();
+    getCurrentLocation();
+    getAdressfromlatlong();
+  }
+
+  late Position? _currentPosition;
+
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
@@ -109,21 +139,79 @@ class _infoState extends State<info> {
               height: 50,
               minWidth: 400,
               onPressed: () {
+                if (Address == "Maroc") {
+                  Devise = "dh";
+                }
+                if (Address == "France" ||
+                    Address == "Germany" ||
+                    Address == "Belgique" ||
+                    Address == "Suisse") {
+                  Devise = "€";
+                } else {
+                  Devise = "\$";
+                }
                 userSetup(
                     fullNameController.text,
                     numbercontroller.text,
                     double.parse(Salarycontroller.text),
                     double.parse(expcontroller.text),
                     double.parse(soldecontroller.text),
-                    datenaissancecontroller.text);
+                    datenaissancecontroller.text,
+                    Devise);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => logout(),
+                      builder: (context) => lobby(),
                     ));
               }),
         ),
       ],
     ));
+  }
+
+  void getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    var position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    var lat = position.latitude;
+    var long = position.longitude;
+
+    // passing this to latitude and longitude strings
+    latitude = lat;
+    longitude = long;
+  }
+
+  permission() async {
+    LocationPermission permission = await Geolocator.requestPermission();
+  }
+
+  void getAdressfromlatlong() async {
+    await Future.delayed(const Duration(seconds: 10), () {});
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(latitude!, longitude!);
+    print(placemarks);
+    Placemark placemark = placemarks[0];
+    setState(() {
+      Address = '${(placemark.country).toString()}';
+    });
   }
 }

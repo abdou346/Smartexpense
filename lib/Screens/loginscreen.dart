@@ -4,17 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:smartexp/addexpense.dart';
-import 'package:smartexp/homescren.dart';
-import 'package:smartexp/info.dart';
-import 'package:smartexp/lobby.dart';
-import 'package:smartexp/logout.dart';
-import 'package:smartexp/sign%20up.dart';
+import 'package:smartexp/Component/circle.dart';
+import 'addexpense.dart';
+import 'homescren.dart';
+import 'info.dart';
+import 'lobby.dart';
+import 'sign%20up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:smartexp/test.dart';
-
-import 'circle.dart';
 import 'sign up.dart';
 import 'infogoogle.dart';
 
@@ -80,10 +77,7 @@ class _loginscreenState extends State<loginscreen> {
           child: RichText(
             text: TextSpan(
               text: "Forgot your password?",
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  print('The button is clicked!');
-                },
+              recognizer: TapGestureRecognizer()..onTap = () {},
               style: GoogleFonts.outfit(
                 textStyle: TextStyle(
                   fontSize: 15,
