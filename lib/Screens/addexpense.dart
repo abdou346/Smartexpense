@@ -9,7 +9,9 @@ import 'package:smartexp/Screens/settings.dart';
 import 'package:smartexp/Firebase/expfirebase.dart';
 
 import '../Component/circle.dart';
+import 'Add.dart';
 import 'detailschoice.dart';
+import 'objectives.dart';
 
 class addexpenses extends StatefulWidget {
   const addexpenses({Key? key}) : super(key: key);
@@ -25,7 +27,8 @@ class _addexpensesState extends State<addexpenses> {
   final type = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
   Widget build(BuildContext context) {
-    int selectedIndex = 0;
+    double width = MediaQuery.of(context).size.width * 0.9;
+    int selectedIndex = 2;
     return Scaffold(
         body: Stack(
       children: [
@@ -76,13 +79,23 @@ class _addexpensesState extends State<addexpenses> {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 600, left: 30),
-          child: FlatButton(
+          height: 50,
+          width: width,
+          margin: EdgeInsets.only(top: 600, left: 20),
+          child: ElevatedButton(
               child: Text("ADD"),
-              textColor: Colors.white,
-              color: const Color(0xff8234F8),
-              height: 50,
-              minWidth: 300,
+              style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    const Color(0xff8234F8),
+                  ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          side: BorderSide(
+                            color: const Color(0xff8234F8),
+                          )))),
               onPressed: () {
                 usererexp(name.text, double.parse(amount.text), type.text);
                 rankdokter(double.parse(amount.text));
@@ -94,9 +107,9 @@ class _addexpensesState extends State<addexpenses> {
               }),
         ),
         Container(
-          margin: EdgeInsets.only(top: 727),
+          margin: EdgeInsets.only(top: 730),
           child: BottomNavigationBar(
-              unselectedItemColor: Colors.grey,
+              selectedIconTheme: IconThemeData(color: const Color(0xffFF653A)),
               selectedItemColor: const Color(0xffFF653A),
               currentIndex: selectedIndex,
               onTap: (int index) {
@@ -110,6 +123,21 @@ class _addexpensesState extends State<addexpenses> {
                         builder: (context) => lobby(),
                       ));
                 }
+                if (selectedIndex == 1) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => detailschoice(),
+                      ));
+                }
+                ;
+                if (selectedIndex == 2) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => add(),
+                      ));
+                }
                 ;
                 if (selectedIndex == 4) {
                   Navigator.push(
@@ -118,18 +146,11 @@ class _addexpensesState extends State<addexpenses> {
                         builder: (context) => HomeScreen(),
                       ));
                 }
-                if (selectedIndex == 2) {
+                if (selectedIndex == 3) {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => addexpenses(),
-                      ));
-                }
-                if (selectedIndex == 1) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => detailschoice(),
+                        builder: (context) => objectives(),
                       ));
                 }
               },
@@ -149,13 +170,12 @@ class _addexpensesState extends State<addexpenses> {
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.add,
-                    color: Colors.grey,
                   ),
                   label: 'add',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.pie_chart,
+                    Icons.list,
                     color: Colors.grey,
                   ),
                   label: 'pie chart',
@@ -167,7 +187,7 @@ class _addexpensesState extends State<addexpenses> {
                     ),
                     label: 'settings'),
               ]),
-        )
+        ),
       ],
     ));
   }

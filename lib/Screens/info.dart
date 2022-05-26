@@ -129,15 +129,23 @@ class _infoState extends State<info> {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(
-            top: 700,
-          ),
-          child: FlatButton(
+          height: 50,
+          width: 500,
+          margin: EdgeInsets.only(top: 730, left: 0),
+          child: ElevatedButton(
               child: Text("Submit"),
-              textColor: Colors.white,
-              color: const Color(0xff8234F8),
-              height: 50,
-              minWidth: 400,
+              style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    const Color(0xff8234F8),
+                  ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          side: BorderSide(
+                            color: const Color(0xff8234F8),
+                          )))),
               onPressed: () {
                 if (Address == "Maroc") {
                   Devise = "dh";

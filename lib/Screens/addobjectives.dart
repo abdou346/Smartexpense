@@ -3,24 +3,26 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smartexp/Screens/details2.dart';
+import 'package:smartexp/Firebase/objectivesfirebase.dart';
+import 'package:smartexp/Screens/objectives.dart';
 import 'Add.dart';
 import 'detailschoice.dart';
 import 'package:smartexp/Firebase/expfirebase.dart';
 import 'lobby.dart';
-import 'objectives.dart';
 import 'settings.dart';
 
 import '../Component/circle.dart';
 
-class addrevenue extends StatefulWidget {
-  const addrevenue({Key? key}) : super(key: key);
+class addobjective extends StatefulWidget {
+  const addobjective({Key? key}) : super(key: key);
 
   @override
-  State<addrevenue> createState() => _addrevenueState();
+  State<addobjective> createState() => _addobjectiveState();
 }
 
-class _addrevenueState extends State<addrevenue> {
+class _addobjectiveState extends State<addobjective> {
+  double _currentSliderValue = 20;
+
   @override
   final name = TextEditingController();
   final amount = TextEditingController();
@@ -28,38 +30,53 @@ class _addrevenueState extends State<addrevenue> {
   FirebaseAuth auth = FirebaseAuth.instance;
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width * 0.9;
-    int selectedIndex = 2;
+    int selectedIndex = 3;
     return Scaffold(
         body: Stack(
       children: [
         circle(),
         Container(
-          margin: EdgeInsets.only(top: 200, left: 20),
+          margin: EdgeInsets.only(top: 50, left: 60),
           child: Text(
-            "Add a revenue ",
+            "Add a saving goal ",
+            style: GoogleFonts.outfit(
+              textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.normal),
+              color: Colors.white,
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 190, left: 20),
+          child: Text(
+            "Amount : \n ${_currentSliderValue} ",
             style: GoogleFonts.outfit(
               textStyle: TextStyle(fontSize: 40, fontWeight: FontWeight.normal),
             ),
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 300, left: 0),
-          child: TextFormField(
-            controller: name,
-            decoration: InputDecoration(
-              labelText: "name",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-            ),
+          margin: EdgeInsets.only(top: 300),
+          height: 40,
+          padding: EdgeInsets.all(8.0),
+          child: Slider(
+            activeColor: const Color(0xff8234F8),
+            value: _currentSliderValue,
+            max: 300000,
+            divisions: 20,
+            label: _currentSliderValue.round().toString(),
+            onChanged: (double value) {
+              setState(() {
+                _currentSliderValue = value;
+              });
+            },
           ),
         ),
         Container(
           margin: EdgeInsets.only(top: 400, left: 0),
           child: TextFormField(
-            controller: amount,
+            controller: name,
             decoration: InputDecoration(
-              labelText: "amount",
+              labelText: "What do you want to save for ?",
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30.0),
               ),
@@ -71,7 +88,7 @@ class _addrevenueState extends State<addrevenue> {
           child: TextFormField(
             controller: type,
             decoration: InputDecoration(
-              labelText: "Revenue Type",
+              labelText: "savings per month",
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30.0),
               ),
@@ -97,12 +114,12 @@ class _addrevenueState extends State<addrevenue> {
                             color: const Color(0xff8234F8),
                           )))),
               onPressed: () {
-                userreven(name.text, double.parse(amount.text), type.text);
-                addrevevenue(double.parse(amount.text));
+                userobjectives(
+                    name.text, _currentSliderValue, double.parse(type.text));
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => lobby(),
+                      builder: (context) => objectives(),
                     ));
               }),
         ),
@@ -170,13 +187,13 @@ class _addrevenueState extends State<addrevenue> {
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.add,
+                    color: Colors.grey,
                   ),
                   label: 'add',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.list,
-                    color: Colors.grey,
                   ),
                   label: 'pie chart',
                 ),

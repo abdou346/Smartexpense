@@ -119,11 +119,20 @@ class _lobbyState extends State<lobby> {
         Container(
           margin: EdgeInsets.only(top: 730),
           child: BottomNavigationBar(
+              selectedIconTheme: IconThemeData(color: const Color(0xffFF653A)),
+              selectedItemColor: const Color(0xffFF653A),
               currentIndex: selectedIndex,
               onTap: (int index) {
                 setState(() {
                   selectedIndex = index;
                 });
+                if (selectedIndex == 0) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => lobby(),
+                      ));
+                }
                 if (selectedIndex == 1) {
                   Navigator.push(
                       context,
@@ -159,7 +168,6 @@ class _lobbyState extends State<lobby> {
                 BottomNavigationBarItem(
                     icon: Icon(
                       Icons.home,
-                      color: Colors.grey,
                     ),
                     label: 'Home'),
                 BottomNavigationBarItem(

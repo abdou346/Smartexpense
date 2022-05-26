@@ -13,6 +13,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../Models/expensesmodel.dart';
 import 'addexpense.dart';
+import 'objectives.dart';
 
 class details extends StatefulWidget {
   const details({Key? key}) : super(key: key);
@@ -35,13 +36,27 @@ class _detailsState extends State<details> {
   expensesmodel? c;
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = 0;
+    int selectedIndex = 1;
     double width = MediaQuery.of(context).size.width * 0.5;
     double height = MediaQuery.of(context).size.height * 0.4;
 
     return Scaffold(
         body: Stack(children: [
       circle(),
+      Container(
+        margin: EdgeInsets.only(top: 50, left: 120),
+        child: RichText(
+          text: TextSpan(
+            text: "   Expenses ",
+            style: GoogleFonts.outfit(
+              textStyle: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+        ),
+      ),
       ListView.separated(
         padding: EdgeInsets.only(top: 220),
         separatorBuilder: (context, position) {
@@ -77,6 +92,8 @@ class _detailsState extends State<details> {
       Container(
         margin: EdgeInsets.only(top: 730),
         child: BottomNavigationBar(
+            selectedIconTheme: IconThemeData(color: const Color(0xffFF653A)),
+            selectedItemColor: const Color(0xffFF653A),
             currentIndex: selectedIndex,
             onTap: (int index) {
               setState(() {
@@ -89,6 +106,7 @@ class _detailsState extends State<details> {
                       builder: (context) => lobby(),
                     ));
               }
+              ;
               if (selectedIndex == 1) {
                 Navigator.push(
                     context,
@@ -112,6 +130,13 @@ class _detailsState extends State<details> {
                       builder: (context) => HomeScreen(),
                     ));
               }
+              if (selectedIndex == 3) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => objectives(),
+                    ));
+              }
             },
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
@@ -123,7 +148,6 @@ class _detailsState extends State<details> {
               BottomNavigationBarItem(
                   icon: Icon(
                     Icons.credit_card,
-                    color: Colors.grey,
                   ),
                   label: 'card'),
               BottomNavigationBarItem(
@@ -135,7 +159,7 @@ class _detailsState extends State<details> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.pie_chart,
+                  Icons.list,
                   color: Colors.grey,
                 ),
                 label: 'pie chart',

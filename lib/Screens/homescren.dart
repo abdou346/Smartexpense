@@ -21,6 +21,7 @@ class _homescreenState extends State<homescreen> {
     double width = MediaQuery.of(context).size.width * 0.5;
     double height = MediaQuery.of(context).size.height * 0.4;
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Column(children: [
@@ -57,36 +58,33 @@ class _homescreenState extends State<homescreen> {
               ),
             ),
           ),
-          SingleChildScrollView(
-            child: InkWell(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    "Start app",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.outfit(
-                        textStyle: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.normal)),
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: const Color(0xff8234F8),
-                ),
-                height: 50,
-                width: 400,
-              ),
-              onTap: () {
-                signOutGoogle();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => loginscreen(),
-                    ));
-              },
-            ),
-          )
+          Container(
+            height: 50,
+            width: 500,
+            margin: EdgeInsets.only(top: 00, left: 0),
+            child: ElevatedButton(
+                child: Text("Start app"),
+                style: ButtonStyle(
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      const Color(0xff8234F8),
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            side: BorderSide(
+                              color: const Color(0xff8234F8),
+                            )))),
+                onPressed: () {
+                  signOutGoogle();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => loginscreen(),
+                      ));
+                }),
+          ),
         ]),
       ),
     );

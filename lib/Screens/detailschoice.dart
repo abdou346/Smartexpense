@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_buttons/flutter_awesome_buttons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'Add.dart';
 import 'addexpense.dart';
 import 'addrevenue.dart';
 import 'package:smartexp/Component/circle.dart';
 import 'details.dart';
 import 'details2.dart';
 import 'lobby.dart';
+import 'objectives.dart';
 import 'settings.dart';
 
 class detailschoice extends StatefulWidget {
@@ -22,21 +24,20 @@ class detailschoiceState extends State<detailschoice> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width * 1;
     double height = MediaQuery.of(context).size.height * 0.3;
-    int selectedIndex = 0;
+    int selectedIndex = 1;
     return Scaffold(
       body: Stack(
         children: [
           circle(),
           Container(
-            margin: EdgeInsets.only(top: 200, left: 100),
+            margin: EdgeInsets.only(top: 50, left: 120),
             child: RichText(
               text: TextSpan(
-                text: "Add Options  ",
+                text: "   Details ",
                 style: GoogleFonts.outfit(
                   textStyle: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.normal,
-                    color: Colors.black,
                   ),
                 ),
               ),
@@ -86,7 +87,8 @@ class detailschoiceState extends State<detailschoice> {
           Container(
             margin: EdgeInsets.only(top: 730),
             child: BottomNavigationBar(
-                unselectedItemColor: Colors.grey,
+                selectedIconTheme:
+                    IconThemeData(color: const Color(0xffFF653A)),
                 selectedItemColor: const Color(0xffFF653A),
                 currentIndex: selectedIndex,
                 onTap: (int index) {
@@ -100,7 +102,6 @@ class detailschoiceState extends State<detailschoice> {
                           builder: (context) => lobby(),
                         ));
                   }
-                  ;
                   if (selectedIndex == 1) {
                     Navigator.push(
                         context,
@@ -108,6 +109,15 @@ class detailschoiceState extends State<detailschoice> {
                           builder: (context) => detailschoice(),
                         ));
                   }
+                  ;
+                  if (selectedIndex == 2) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => add(),
+                        ));
+                  }
+                  ;
                   if (selectedIndex == 4) {
                     Navigator.push(
                         context,
@@ -115,11 +125,11 @@ class detailschoiceState extends State<detailschoice> {
                           builder: (context) => HomeScreen(),
                         ));
                   }
-                  if (selectedIndex == 2) {
+                  if (selectedIndex == 3) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => addexpenses(),
+                          builder: (context) => objectives(),
                         ));
                   }
                 },
@@ -133,7 +143,6 @@ class detailschoiceState extends State<detailschoice> {
                   BottomNavigationBarItem(
                       icon: Icon(
                         Icons.credit_card,
-                        color: Colors.grey,
                       ),
                       label: 'card'),
                   BottomNavigationBarItem(
@@ -145,7 +154,7 @@ class detailschoiceState extends State<detailschoice> {
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.pie_chart,
+                      Icons.list,
                       color: Colors.grey,
                     ),
                     label: 'pie chart',
@@ -157,7 +166,7 @@ class detailschoiceState extends State<detailschoice> {
                       ),
                       label: 'settings'),
                 ]),
-          )
+          ),
         ],
       ),
     );

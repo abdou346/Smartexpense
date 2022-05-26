@@ -10,6 +10,8 @@ import 'package:smartexp/Screens/settings.dart';
 
 import 'package:smartexp/Component/circle.dart';
 
+import 'objectives.dart';
+
 class add extends StatefulWidget {
   const add({Key? key}) : super(key: key);
 
@@ -22,21 +24,20 @@ class _addState extends State<add> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width * 1;
     double height = MediaQuery.of(context).size.height * 0.3;
-    int selectedIndex = 0;
+    int selectedIndex = 2;
     return Scaffold(
       body: Stack(
         children: [
           circle(),
           Container(
-            margin: EdgeInsets.only(top: 200, left: 100),
+            margin: EdgeInsets.only(top: 50, left: 90),
             child: RichText(
               text: TextSpan(
-                text: "Add Options  ",
+                text: " Transactions  ",
                 style: GoogleFonts.outfit(
                   textStyle: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.normal,
-                    color: Colors.black,
                   ),
                 ),
               ),
@@ -86,7 +87,8 @@ class _addState extends State<add> {
           Container(
             margin: EdgeInsets.only(top: 730),
             child: BottomNavigationBar(
-                unselectedItemColor: Colors.grey,
+                selectedIconTheme:
+                    IconThemeData(color: const Color(0xffFF653A)),
                 selectedItemColor: const Color(0xffFF653A),
                 currentIndex: selectedIndex,
                 onTap: (int index) {
@@ -100,6 +102,21 @@ class _addState extends State<add> {
                           builder: (context) => lobby(),
                         ));
                   }
+                  if (selectedIndex == 1) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => detailschoice(),
+                        ));
+                  }
+                  ;
+                  if (selectedIndex == 2) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => add(),
+                        ));
+                  }
                   ;
                   if (selectedIndex == 4) {
                     Navigator.push(
@@ -108,18 +125,11 @@ class _addState extends State<add> {
                           builder: (context) => HomeScreen(),
                         ));
                   }
-                  if (selectedIndex == 2) {
+                  if (selectedIndex == 3) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => addexpenses(),
-                        ));
-                  }
-                  if (selectedIndex == 1) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => detailschoice(),
+                          builder: (context) => objectives(),
                         ));
                   }
                 },
@@ -139,13 +149,12 @@ class _addState extends State<add> {
                   BottomNavigationBarItem(
                     icon: Icon(
                       Icons.add,
-                      color: Colors.grey,
                     ),
                     label: 'add',
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.pie_chart,
+                      Icons.list,
                       color: Colors.grey,
                     ),
                     label: 'pie chart',
@@ -157,7 +166,7 @@ class _addState extends State<add> {
                       ),
                       label: 'settings'),
                 ]),
-          )
+          ),
         ],
       ),
     );

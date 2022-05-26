@@ -4,25 +4,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../Component/circle.dart';
-import '../Models/expensesmodel.dart';
 import 'Add.dart';
 import 'detailschoice.dart';
 import 'lobby.dart';
-import 'objectives.dart';
-import 'settings.dart';
+import 'Settings.dart';
 import 'package:smartexp/Models/usermodel.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../Models/expensesmodel.dart';
 import 'addexpense.dart';
+import 'objectives.dart';
 
-class details2 extends StatefulWidget {
-  const details2({Key? key}) : super(key: key);
+class objectivedetails extends StatefulWidget {
+  const objectivedetails({Key? key}) : super(key: key);
 
   @override
-  State<details2> createState() => _details2State();
+  State<objectivedetails> createState() => _objectivedetailsState();
 }
 
-class _details2State extends State<details2> {
+class _objectivedetailsState extends State<objectivedetails> {
   FirebaseAuth auth = FirebaseAuth.instance;
   var growableListid = [];
   var growableListam = [];
@@ -34,10 +34,9 @@ class _details2State extends State<details2> {
   usermodel? a;
   expensesmodel? b;
   expensesmodel? c;
-  String? devise;
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = 1;
+    int selectedIndex = 3;
     double width = MediaQuery.of(context).size.width * 0.5;
     double height = MediaQuery.of(context).size.height * 0.4;
 
@@ -45,10 +44,10 @@ class _details2State extends State<details2> {
         body: Stack(children: [
       circle(),
       Container(
-        margin: EdgeInsets.only(top: 50, left: 120),
+        margin: EdgeInsets.only(top: 50, left: 90),
         child: RichText(
           text: TextSpan(
-            text: "   Revenues ",
+            text: "   Objectives ",
             style: GoogleFonts.outfit(
               textStyle: TextStyle(
                 fontSize: 30,
@@ -78,12 +77,12 @@ class _details2State extends State<details2> {
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Text(
-                  'Name: ${growableListna[position]}\n\nAmount: ${growableListam[position]}\n\nPayment type: ${growableListty[position]}',
+                  'you are saving for ${growableListna[position]} \n\nAmount: ${growableListam[position]}  \n\n savings per month ${growableListty[position]}',
                   style: GoogleFonts.outfit(
                     textStyle: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.green),
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal,
+                    ),
                   )),
             ),
           );
@@ -107,7 +106,6 @@ class _details2State extends State<details2> {
                       builder: (context) => lobby(),
                     ));
               }
-              ;
               if (selectedIndex == 1) {
                 Navigator.push(
                     context,
@@ -149,6 +147,7 @@ class _details2State extends State<details2> {
               BottomNavigationBarItem(
                   icon: Icon(
                     Icons.credit_card,
+                    color: Colors.grey,
                   ),
                   label: 'card'),
               BottomNavigationBarItem(
@@ -161,7 +160,6 @@ class _details2State extends State<details2> {
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.list,
-                  color: Colors.grey,
                 ),
                 label: 'pie chart',
               ),
@@ -185,21 +183,20 @@ class _details2State extends State<details2> {
         .get()
         .then((value) {
       this.a = usermodel.fromMap(value.data());
-      devise = a?.Devise;
       setState(() {});
     });
 
     FirebaseFirestore.instance
-        .collection('Revenues')
+        .collection('Objectives')
         .doc('${auth.currentUser!.uid}')
-        .collection('revenues')
+        .collection('objectives')
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         // getdocid(doc.id, doc['Amount'], doc['type'], doc['name']);
         growableListid.add(doc.id);
-        growableListam.add(doc['Amount'].toString() + "${devise}");
-        growableListty.add(doc['type']);
+        growableListam.add(doc['Amount'].toString() + "${a?.Devise}");
+        growableListty.add(doc['monthlygoal'].toString() + "${a?.Devise}");
         growableListna.add(doc['name']);
       });
       setState(() {});

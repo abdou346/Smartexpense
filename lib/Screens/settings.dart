@@ -14,6 +14,7 @@ import 'package:smartexp/Component/theme.dart';
 import 'addexpense.dart';
 
 import 'homescren.dart';
+import 'objectives.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = 0;
+    int selectedIndex = 4;
 
     return Scaffold(
       body: Stack(
@@ -118,6 +119,9 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             margin: EdgeInsets.only(top: 730),
             child: BottomNavigationBar(
+                selectedIconTheme:
+                    IconThemeData(color: const Color(0xffFF653A)),
+                selectedItemColor: const Color(0xffFF653A),
                 currentIndex: selectedIndex,
                 onTap: (int index) {
                   setState(() {
@@ -130,6 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           builder: (context) => lobby(),
                         ));
                   }
+                  ;
                   if (selectedIndex == 1) {
                     Navigator.push(
                         context,
@@ -151,6 +156,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => HomeScreen(),
+                        ));
+                  }
+                  if (selectedIndex == 3) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => objectives(),
                         ));
                   }
                 },
@@ -176,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.pie_chart,
+                      Icons.list,
                       color: Colors.grey,
                     ),
                     label: 'pie chart',
@@ -184,7 +196,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   BottomNavigationBarItem(
                       icon: Icon(
                         Icons.settings,
-                        color: Colors.grey,
                       ),
                       label: 'settings'),
                 ]),
