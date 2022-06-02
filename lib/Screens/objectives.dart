@@ -66,6 +66,7 @@ class _objectivesState extends State<objectives> {
                       textStyle: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.normal,
+                        color: const Color(0xffFF653A),
                       ),
                     ),
                   ),

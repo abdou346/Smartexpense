@@ -198,7 +198,7 @@ class _details2State extends State<details2> {
       querySnapshot.docs.forEach((doc) {
         // getdocid(doc.id, doc['Amount'], doc['type'], doc['name']);
         growableListid.add(doc.id);
-        growableListam.add(doc['Amount'].toString() + "${devise}");
+        growableListam.add(doc['Amount'].toString() + "${a?.Devise}");
         growableListty.add(doc['type']);
         growableListna.add(doc['name']);
       });

@@ -202,8 +202,4 @@ class _objectivedetailsState extends State<objectivedetails> {
       setState(() {});
     });
   }
-
-  //void getdocid(String id, double a, String b, String c) {
-
-  // }
 }

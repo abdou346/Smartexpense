@@ -50,7 +50,7 @@ class _homescreenState extends State<homescreen> {
             child: Container(
               margin: EdgeInsets.only(top: 0),
               child: Text(
-                "Debutez votre aventure , cette applicaion fera partie de votre quotidien et vous aidera a mieux gerer votre budget.",
+                "Welcome to SMART EXPENSE, this app will allow you to manage your money, keeping a daily record of your expenses by tracking it improves the financial health of your budget, thus the purpose of our application.",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.outfit(
                     textStyle:
